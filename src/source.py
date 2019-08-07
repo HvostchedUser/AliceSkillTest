@@ -57,7 +57,7 @@ def echo():
         delete(user_id)
         resptext="Сброс..."
     else:
-        if request.json['request']["command"]=="сброс":
+        if request.json['request']["command"]=="знач":
             delete(user_id)
             resptext="V1: "+get_user_v1(user_id)+" V2: "+get_user_v2(user_id)
         else:
