@@ -8,8 +8,8 @@ db=peewee.SqliteDatabase('users.db')
 
 class User(peewee.Model):
     chat_id = peewee.TextField(unique=True)
-    val1 = peewee.TextField(default="")
-    val2 = peewee.TextField(default="")
+    v1 = peewee.TextField(default="")
+    v2 = peewee.TextField(default="")
     class Meta:
         database=db
 def init():
@@ -27,12 +27,12 @@ def get_user_v1(chat_id):
     user=User.get_or_none(chat_id=chat_id)
     if user is None:
         return None
-    return user.state
+    return user.v1
 def get_user_v2(chat_id):
     user=User.get_or_none(chat_id=chat_id)
     if user is None:
         return None
-    return user.state
+    return user.v2
 def set_user_v1(chat_id,state):
     user,created=User.get_or_create(chat_id=chat_id)
     user.v1=state
