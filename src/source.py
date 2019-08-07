@@ -11,7 +11,7 @@ def echo():
         'version': request.json['version'],
         'session': request.json['session'],
         'response':{
-            'text':str(request.json[text][::-1]==request.json[text])
+            'text':str(request.json['text'][::-1]==request.json['text'])
         }
     }
     return response
