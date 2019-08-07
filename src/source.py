@@ -55,6 +55,7 @@ def echo():
     user_id=request.json['session']['user_id']
     if request.json['request']["command"]=="сброс":
         delete(user_id)
+        resptext="Сброс..."
     else:
         if get_user_v1(user_id) is None or get_user_v1(user_id)=="!@#$ )(*&":
             set_user_v1(user_id,"")
