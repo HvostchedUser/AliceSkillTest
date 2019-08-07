@@ -47,7 +47,8 @@ def echo():
     resptext="Ошибка. Попробуйте позже."
     user_id=request.json['session']['user_id']
     if get_user_v1(user_id)==None:
-        set_user(user_id,"")
+        set_user_v1(user_id,"")
+        set_user_v2(user_id,"")
         resptext="Введите V1"
 
     if get_user_v1(user_id)=="":
