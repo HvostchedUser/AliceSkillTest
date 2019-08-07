@@ -72,5 +72,4 @@ def echo():
     }
     return response
 init()
-drop()
 app.run(host='0.0.0.0',port=os.getenv('PORT',5000))
