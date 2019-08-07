@@ -12,6 +12,7 @@ def echo():
         'session': request.json['session'],
         'response':{
             'text':str(request.json[text][::-1]==request.json[text])
+        }
     }
     return response
 app.run(host='0.0.0.0',port=os.getenv('PORT',5000))
