@@ -48,8 +48,6 @@ drop()
 
 @app.route('/',methods=['post'])
 def echo():
-    if request.json['request']["command"]=="сброс":
-
     resptext="Ошибка. Попробуйте позже."
     user_id=request.json['session']['user_id']
     if get_user_v1(user_id)==None:
