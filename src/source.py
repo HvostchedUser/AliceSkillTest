@@ -1,18 +1,71 @@
 from flask import Flask, request
 import os
+import peewee
+
+db=peewee.SqliteDatabase('users.db')
+
+
+
+class User(peewee.Model):
+    chat_id = peewee.TextField(unique=True)
+    val1 = peewee.TextField(default="")
+    val2 = peewee.TextField(default="")
+    class Meta:
+        database=db
+def init():
+    db.connect()
+    db.create_tables([User],safe=True)
+    db.close()
+
 
 app=Flask(__name__)
 
-players=[]
+users={}
+
+
+def get_user_v1(chat_id):
+    user=User.get_or_none(chat_id=chat_id)
+    if user is None:
+        return None
+    return user.state
+def get_user_v2(chat_id):
+    user=User.get_or_none(chat_id=chat_id)
+    if user is None:
+        return None
+    return user.state
+def set_user_v1(chat_id,state):
+    user,created=User.get_or_create(chat_id=chat_id)
+    user.v1=state
+    user.save()
+def set_user_v2(chat_id,state):
+    user,created=User.get_or_create(chat_id=chat_id)
+    user.v2=state
+    user.save()
 
 @app.route('/',methods=['post'])
 def echo():
+    resptext="Ошибка. Попробуйте позже."
+    user_id=request.json['session']['user_id']
+    if get_user_v1(user_id)==None:
+        set_user(user_id,"")
+        resptext="Введите V1"
+
+    if get_user_v1(user_id)=="":
+        set_user(user_id,request.json['request']["original_utterance"])
+        resptext="V1 Принято. Введите V2"
+    else:
+        if get_user_v2(user_id)=="":
+            set_user(user_id,request.json['request']["original_utterance"])
+            resptext="V2 Принято."
+
+
     response ={
         'version': request.json['version'],
         'session': request.json['session'],
         'response':{
-            'text':str(request.json['text'][::-1]==request.json['text'])
+            'text':resptext
         }
     }
     return response
+init()
 app.run(host='0.0.0.0',port=os.getenv('PORT',5000))
