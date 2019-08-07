@@ -49,7 +49,7 @@ def drop():
 def echo():
     resptext="Ошибка. Попробуйте позже."
     user_id=request.json['session']['user_id']
-    if get_user_v1(user_id)=="Ничего" or get_user_v1(user_id)==None:
+    if get_user_v1(user_id)=="Ничего" or get_user_v1(user_id) is None:
         set_user_v1(user_id,"")
         set_user_v2(user_id,"")
         resptext="Введите V1"
