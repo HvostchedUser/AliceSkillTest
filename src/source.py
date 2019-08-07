@@ -44,7 +44,6 @@ def set_user_v2(chat_id,state):
 def drop():
     User.drop_table()
 
-drop()
 
 @app.route('/',methods=['post'])
 def echo():
@@ -73,4 +72,5 @@ def echo():
     }
     return response
 init()
+drop()
 app.run(host='0.0.0.0',port=os.getenv('PORT',5000))
