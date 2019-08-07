@@ -8,8 +8,8 @@ db=peewee.SqliteDatabase('users.db')
 
 class User(peewee.Model):
     chat_id = peewee.TextField(unique=True)
-    v1 = peewee.TextField(default="")
-    v2 = peewee.TextField(default="")
+    v1 = peewee.TextField(default="Ничего")
+    v2 = peewee.TextField(default="Ничего")
     class Meta:
         database=db
 def init():
@@ -49,7 +49,7 @@ def drop():
 def echo():
     resptext="Ошибка. Попробуйте позже."
     user_id=request.json['session']['user_id']
-    if get_user_v1(user_id)==None:
+    if get_user_v1(user_id)=="Ничего" or get_user_v1(user_id)==None:
         set_user_v1(user_id,"")
         set_user_v2(user_id,"")
         resptext="Введите V1"
