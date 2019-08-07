@@ -9,7 +9,7 @@ def echo():
         'version': request.json['version'],
         'session': request.json['session'],
         'response':{
-            'text':request
+            'text':request.json
         }
     }
     return response
