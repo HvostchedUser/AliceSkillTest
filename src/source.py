@@ -58,7 +58,6 @@ def echo():
         resptext="Сброс..."
     else:
         if request.json['request']["command"]=="знач":
-            delete(user_id)
             resptext="V1: "+get_user_v1(user_id)+" V2: "+get_user_v2(user_id)
         else:
             if get_user_v1(user_id) is None or get_user_v1(user_id)=="!@#$ )(*&":
