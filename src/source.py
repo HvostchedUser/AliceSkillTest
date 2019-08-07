@@ -8,8 +8,8 @@ db=peewee.SqliteDatabase('users.db')
 
 class User(peewee.Model):
     chat_id = peewee.TextField(unique=True)
-    v1 = peewee.TextField(default="")
-    v2 = peewee.TextField(default="")
+    v1 = peewee.TextField(default="!@#$ )(*&")
+    v2 = peewee.TextField(default="!@#$ )(*&")
     class Meta:
         database=db
 def init():
@@ -41,15 +41,21 @@ def set_user_v2(chat_id,state):
     user,created=User.get_or_create(chat_id=chat_id)
     user.v2=state
     user.save()
-def drop():
-    User.drop_table()
+def delete(chat_id):
+    user,created=User.get_or_create(chat_id=chat_id)
+    user.v1="!@#$ )(*&"
+    user.v2="!@#$ )(*&"
+    user.save()
+
 
 
 @app.route('/',methods=['post'])
 def echo():
     resptext="Ошибка. Попробуйте позже."
     user_id=request.json['session']['user_id']
-    if get_user_v1(user_id) is None:
+    if request.json['request']["command"]=="сброс":
+        delete(user_id)
+    if get_user_v1(user_id) is None or get_user_v1(user_id)=="!@#$ )(*&":
         set_user_v1(user_id,"")
         set_user_v2(user_id,"")
         resptext="Введите V1"
