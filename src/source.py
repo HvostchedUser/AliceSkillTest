@@ -41,9 +41,15 @@ def set_user_v2(chat_id,state):
     user,created=User.get_or_create(chat_id=chat_id)
     user.v2=state
     user.save()
+def drop():
+    User.drop_table()
+
+drop()
 
 @app.route('/',methods=['post'])
 def echo():
+    if request.json['request']["command"]=="сброс":
+
     resptext="Ошибка. Попробуйте позже."
     user_id=request.json['session']['user_id']
     if get_user_v1(user_id)==None:
