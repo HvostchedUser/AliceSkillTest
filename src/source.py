@@ -61,11 +61,11 @@ def echo():
         resptext="Введите V1"
 
     if get_user_v1(user_id)=="":
-        set_user_v1(user_id,request.json['request']["original_utterance"])
+        set_user_v1(user_id,request.json['request']["command"])
         resptext="V1 Принято. Введите V2"
     else:
         if get_user_v2(user_id)=="":
-            set_user_v2(user_id,request.json['request']["original_utterance"])
+            set_user_v2(user_id,request.json['request']["command"])
             resptext="V2 Принято."
 
 
